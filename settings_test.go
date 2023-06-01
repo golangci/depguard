@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/OpenPeeDeeP/depguard/v2/internal/utils"
 	"github.com/gobwas/glob"
+	"github.com/golangci/depguard/v2/internal/utils"
 	"github.com/google/go-cmp/cmp"
 )
 

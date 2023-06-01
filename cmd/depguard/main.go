@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/BurntSushi/toml"
-	depguard "github.com/OpenPeeDeeP/depguard/v2"
+	depguard "github.com/golangci/depguard/v2"
 	"golang.org/x/tools/go/analysis/singlechecker"
 	"gopkg.in/yaml.v3"
 )

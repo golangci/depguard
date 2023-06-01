@@ -4,7 +4,7 @@ import (
 	"embed"
 	"testing"
 
-	"github.com/OpenPeeDeeP/depguard/v2"
+	depguard "github.com/golangci/depguard/v2"
 	"github.com/google/go-cmp/cmp"
 )
 
