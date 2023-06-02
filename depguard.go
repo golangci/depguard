@@ -11,24 +11,24 @@ import (
 
 // NewAnalyzer creates a new analyzer from the settings passed in
 func NewAnalyzer(settings *LinterSettings) (*analysis.Analyzer, error) {
-	s, err := settings.compile()
+	s, err := settings.Compile()
 	if err != nil {
 		return nil, err
 	}
-	analyzer := newAnalyzer(s)
+	analyzer := NewCoreAnalyzer(s)
 	return analyzer, nil
 }
 
-func newAnalyzer(settings linterSettings) *analysis.Analyzer {
+func NewCoreAnalyzer(settings CoreSettings) *analysis.Analyzer {
 	return &analysis.Analyzer{
 		Name:             "depguard",
 		Doc:              "Go linter that checks if package imports are in a list of acceptable packages",
-		Run:              settings.run,
+		Run:              settings.Run,
 		RunDespiteErrors: false,
 	}
 }
 
-func (s linterSettings) run(pass *analysis.Pass) (interface{}, error) {
+func (s CoreSettings) Run(pass *analysis.Pass) (interface{}, error) {
 	for _, file := range pass.Files {
 		// For Windows need to replace separator with '/'
 		fileName := filepath.ToSlash(pass.Fset.Position(file.Pos()).Filename)

@@ -127,9 +127,9 @@ func (l *list) importAllowed(imp string) (bool, string) {
 
 type LinterSettings map[string]*List
 
-type linterSettings []*list
+type CoreSettings []*list
 
-func (l LinterSettings) compile() (linterSettings, error) {
+func (l LinterSettings) Compile() (CoreSettings, error) {
 	if len(l) == 0 {
 		// Only allow $gostd in all files
 		set := &List{
@@ -141,14 +141,14 @@ func (l LinterSettings) compile() (linterSettings, error) {
 			return nil, err
 		}
 		li.name = "Main"
-		return linterSettings{li}, nil
+		return CoreSettings{li}, nil
 	}
 	names := make([]string, 0, len(l))
 	for name := range l {
 		names = append(names, name)
 	}
 	sort.Strings(names)
-	li := make(linterSettings, 0, len(l))
+	li := make(CoreSettings, 0, len(l))
 	var errs utils.MultiError
 	for _, name := range names {
 		c, err := l[name].compile()
@@ -169,9 +169,9 @@ func (l LinterSettings) compile() (linterSettings, error) {
 	return li, nil
 }
 
-func (ls linterSettings) whichLists(fileName string) []*list {
+func (s CoreSettings) whichLists(fileName string) []*list {
 	var matches []*list
-	for _, l := range ls {
+	for _, l := range s {
 		if l.fileMatch(fileName) {
 			matches = append(matches, l)
 		}

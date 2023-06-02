@@ -22,7 +22,7 @@ type listCompileScenario struct {
 type settingsCompileScenario struct {
 	name     string
 	settings LinterSettings
-	exp      linterSettings
+	exp      CoreSettings
 	expErr   error
 }
 
@@ -229,7 +229,7 @@ func testListCompile(s *listCompileScenario) func(*testing.T) {
 
 func testSettingsCompile(s *settingsCompileScenario) func(*testing.T) {
 	return func(t *testing.T) {
-		act, err := s.settings.compile()
+		act, err := s.settings.Compile()
 		if s.expErr != nil {
 			if err == nil {
 				t.Fatal("expected an error")
@@ -573,7 +573,7 @@ type linterSettingsWhichListsScenario struct {
 	expected []string
 }
 
-var linterSettingsWhichListsSetup = linterSettings{
+var linterSettingsWhichListsSetup = CoreSettings{
 	{
 		name: "Main",
 		files: []glob.Glob{
